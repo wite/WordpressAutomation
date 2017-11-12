@@ -1,22 +1,25 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WordpressAutomation
 {
     public class NewPostPage
     {
+        public static string Title {
+            get
+            {
+                var title = Driver.Instance.FindElement(By.Id("title"));
+                if (title != null)
+                {
+                    return title.GetAttribute("value");
+                }
+                return String.Empty;
+            }
+        }
+
         public static void GoTo()
         {
-            var menuPosts =  Driver.Instance.FindElement(By.Id("menu-posts"));
-            menuPosts.Click();
-
-            var addNew = Driver.Instance.FindElement(By.LinkText("Add New"));
-            addNew.Click();
-
+            LeftNavitagion.Posts.AddNew.Select();
         }
 
         public static CreatePostCommand CreatePost(string title)
@@ -29,6 +32,11 @@ namespace WordpressAutomation
             var message = Driver.Instance.FindElement(By.Id("message"));
             var newPostLink = message.FindElements(By.TagName("a"))[0];
             newPostLink.Click();
+        }
+
+        public static bool IsInEditMode()
+        {
+            return Driver.Instance.FindElement(By.ClassName("wp-heading-inline")).Text == "Edit Page";
         }
     }
 }

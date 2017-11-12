@@ -7,7 +7,7 @@ namespace WordpressAutomation
     {
         public static void GoTo()
         {
-            Driver.Instance.Navigate().GoToUrl("http://localhost:51681/wp-login.php");
+            Driver.Instance.Navigate().GoToUrl(Driver.BaseAddress + "wp-login.php");
         }
 
         public static LoginCommand LoginAs(string userName)

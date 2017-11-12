@@ -20,7 +20,7 @@ namespace WordpressAutomation
             return this;
         }
 
-        public void Publish()
+        public void Publish(bool noDraft = true)
         {
             Driver.Instance.FindElement(By.Id("title")).SendKeys(title);
 
@@ -28,9 +28,16 @@ namespace WordpressAutomation
             Driver.Instance.SwitchTo().ActiveElement().SendKeys(body);
             Driver.Instance.SwitchTo().DefaultContent();
 
-            Thread.Sleep(1000);
+            Driver.Wait(TimeSpan.FromSeconds(1));
 
-            Driver.Instance.FindElement(By.Id("publish")).Click();
+            var publishButton = Driver.Instance.FindElement(By.Id("publish"));
+            publishButton.Click();
+
+            if (noDraft == true)
+            {
+                Driver.Wait(TimeSpan.FromSeconds(3));
+                publishButton.Click();
+            }
         }
     }
 }

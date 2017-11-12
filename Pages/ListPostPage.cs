@@ -14,8 +14,7 @@ namespace WordpressAutomation
             switch (postType)
             {
                 case PostType.Page:
-                    Driver.Instance.FindElement(By.Id("menu-pages")).Click();
-                    Driver.Instance.FindElement(By.LinkText("All Pages")).Click();
+                    LeftNavitagion.Pages.AllPages.Select();
                     break;
             }
         }
